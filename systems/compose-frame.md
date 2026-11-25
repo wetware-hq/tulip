@@ -88,7 +88,10 @@ PROGRAM compose-frame(reader) {
     choice := ASK reader;                                # world: human — THE EDGE
       IF choice.picked = "stop" THEN { CHAPTER closing; BREAK };
       IF agent produced choice THEN REFUSE self_choice;
-    key  := derive(skill, choices since last text);      # world: machine, pure
+    IF choice.picked needs a Reader value THEN            # combine-lines digits | age | position
+      value := ASK reader (Domain choice, cites choice);  # world: human, a second edge event
+      IF value outside its domain THEN REFUSE bad_key; offer the hinge again;
+    key  := derive(skill, choices since last text, including value); # world: machine, pure
     text := engine(constraint, key);                     # world: machine, pure
       REFUSE first failing code in contract §5;
     hinge := next out-edges, or next offered skills;     # the incipit breaks off here
@@ -138,6 +141,8 @@ A Reader starts a frame and gives a birthday. Events are abbreviated and roots o
 {"seq":7,"world":"machine","kind":"hinge","body":{"title":"Given the day you were born,","offered":[{"id":"s7-poe","label":"Send the nouns seven places down Poe"},{"id":"tale","label":"Step into a tale that forks"},{"id":"stop","label":"Close the book"}]},"cites":[6]}
 {"seq":8,"world":"frame","kind":"chapter","body":"(chapter 3, below)","cites":[1,3,4,5,6,7]}
 ```
+
+The `age` pick selects the derivation; the birthday is the second Reader value, recorded as the Domain choice `e4`, before key `e5`.
 
 **Chapter 1** (`e2`)
 
