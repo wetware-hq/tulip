@@ -2,7 +2,7 @@
 
 `type: resource.procedure` · `spec: agent.skill` · subordinate to `docs/follow-agent-contract.md`, which governs on any conflict.
 
-Treat a tale as a directed graph whose nodes are passages and whose edges are the Reader's options, and walk it one choice at a time. This is Queneau's *Un conte à votre façon*, as in `Annex4/Conte2.py` of the `$source`. tulip uses Queneau's graph for its shape only and fills the nodes with public-domain passages or with the other skills.
+Treat a tale as a directed graph whose nodes are passages and whose edges are the Reader's options, and walk it one choice at a time. This is Queneau's *Un conte à votre façon*, as in `Annex4/Conte2.py` of the `$source`. `corpus:conte` is structure-only: that status allows the graph's edges and shape, never its text. tulip fills its nodes with public-domain passages.
 
 ## Specification
 
@@ -32,6 +32,7 @@ Treat a tale as a directed graph whose nodes are passages and whose edges are th
 ## Contraindications
 
 - Do not fill a node with Queneau's text (`not_public_domain`).
+- Do not walk a graph with no fill record (`unpinned`).
 - Do not hide an out-edge or add one the graph does not have (`not_offered`).
 - Do not report an illusory choice as a real one (T5).
 
@@ -52,7 +53,7 @@ edge_bits = "sum of log2(distinct targets) over visited nodes"
 [controlled]
 graph = "corpus:conte structure, or another admitted graph"
 start = "node 1"
-fill = "per node: a public-domain passage, or a nested skill call"
+fill = "frame.json fills[graph]: node n -> its pinned public-domain passage"
 ```
 
 ### Queneau's graph (structure only)
@@ -76,6 +77,8 @@ The edge list of `Graph.edgelist` at the pin, by node number. Nodes 20 and 21 ar
 | Real choices | the other 17 non-terminals, 7, 8 and 11 included | 1 bit each; the graph holds 17 bits in all, and one walk collects only those of the nodes it visits |
 
 ### Process
+
+Option labels come from `fills[graph].labels`, never from Queneau's option text.
 
 ```text { type: notebook.cell }
 node := start; path := [start]
@@ -106,6 +109,7 @@ at stop: emit text (the path, and the graph with the path marked)   # the source
 | Offer only one of node 16's two edges | `not_offered` |
 | Fill node 4 with Queneau's sentence | `not_public_domain` |
 | Agent picks at node 1 because the Reader is slow | `self_choice` |
+| Walk a graph with no fill record | `unpinned` |
 
 ## Licence
 

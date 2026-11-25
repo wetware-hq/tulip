@@ -50,12 +50,12 @@ Full digests are in `frame.json` `source.files`.
 | `corpus:dickens` | `Annex2/Dickens.txt` | text | admit | *A Tale of Two Cities*, 1859 |
 | `corpus:doi` | `Annex2/DoI.txt` | text | admit | Declaration of Independence, 1776 |
 | `corpus:genesis` | `Annex2/Bible.txt` | text | admit | King James Version, 1611 |
-| `corpus:kjv` | `Annex2/King_James_Bible copy.txt` | lexicon | admit | King James Version, 1611 |
+| `corpus:kjv` | `Annex2/King_James_Bible copy.txt` | lexicon | admit | King James Version, 1611; also serves as the tale's fill text (Genesis 1:1–21) |
 | `corpus:inaugural` | `Annex2/InauguralAddressCorpus.txt` | lexicon | admit | US presidential inaugural addresses, US government works |
 | `corpus:shakespeare-sonnets` | `Annex3/Shakespeare_Generator.py` `Corpus.poems` | matrix 10 × 14 | admit after repair | Shakespeare, 1609; see Repair |
 | `corpus:montypython` | `Annex2/MontyPython.txt` | lexicon | **refuse** `not_public_domain` | *Monty Python and the Holy Grail*, 1975 |
 | `corpus:cmmp` | `Annex3/CMMP.py` `Corpus.poems` | matrix 10 × 14 | **structure only** | Queneau 1961, Gallimard copyright |
-| `corpus:conte` | `Annex4/Conte2.py` `Graph.edgelist` | graph 21 nodes | **structure only** | Queneau 1967, Gallimard copyright |
+| `corpus:conte` | `Annex4/Conte2.py` `Graph.edgelist` | graph 21 nodes | **structure only** | Queneau 1967, Gallimard copyright; runs with the fill above (`corpus:kjv`, Genesis 1:1–21) |
 
 "Structure only" means tulip may use the shape (row and column counts, node numbers and the edge list by number) but never a word of the text. Calvino's novels are not corpora; they appear only as citations.
 

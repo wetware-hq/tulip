@@ -101,6 +101,14 @@
       "field": "Graph.edgelist"
     }
   },
+  "fills": {
+    "corpus:conte": {
+      "text": "corpus:kjv",
+      "rule": "node n -> Genesis 1:n, n = 1..21",
+      "extract": "after the line 'The First Book of Moses:  Called Genesis', collapse whitespace; verse 1:n is the text after the marker '1:n ' up to the next '<chapter>:<verse> ' marker",
+      "labels": ["Take the first way", "Take the second way"]
+    }
+  },
   "frame": {
     "max_incipits": 10,
     "person": "second",
