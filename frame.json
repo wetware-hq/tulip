@@ -109,6 +109,16 @@
       "labels": ["Take the first way", "Take the second way"]
     }
   },
+  "tools": {
+    "substitute-lexeme": {
+      "nltk": "3.8.1",
+      "inflect": "7.0.0",
+      "tokenizer": {"call": "nltk.word_tokenize", "data": "tokenizers/punkt.zip", "digest": "sha256:51c3078994aeaf650bfc8e028be4fb42b4a0d177d41c012b6a983979653660ec"},
+      "tagger": {"call": "nltk.pos_tag", "data": "taggers/averaged_perceptron_tagger.zip", "digest": "sha256:e1f13cf2532daadfd6f3bc481a49859f0b8ea6432ccdcd83e6a49a5f19008de9"},
+      "lemmatizer": {"call": "WordNetLemmatizer().lemmatize(w) if it ends with 'e', else PorterStemmer().stem(w)", "data": "corpora/wordnet.zip", "digest": "sha256:cbda5ea6eef7f36a97a43d4a75f85e07fccbb4f23657d27b4ccbc93e2646ab59"},
+      "plural": {"call": "inflect.engine().plural"}
+    }
+  },
   "frame": {
     "max_incipits": 10,
     "person": "second",

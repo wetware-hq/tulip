@@ -33,6 +33,7 @@ Replace every noun of a text with the noun `n` places later in a sorted lexicon.
 
 - Do not use a refused or structure-only corpus as text or lexicon (`not_public_domain`).
 - Do not let the tagger vary between runs; an unpinned tagger breaks T8 (`drift`).
+- Refuse a tool-data digest mismatch as `drift`.
 - Do not substitute verbs, adjectives or names chosen by taste. The rule picks the words, not the agent (`pure_chance`).
 
 ## Algorithm
@@ -51,7 +52,7 @@ text = "the substituted text"
 
 [controlled]
 source = "text corpus pin"
-tagger = "one pinned part-of-speech tagger and model (the source uses NLTK pos_tag)"
+tagger = "frame.json tools.substitute-lexeme; nltk 3.8.1 pos_tag with averaged_perceptron_tagger, sha256:e1f13cf2532daadfd6f3bc481a49859f0b8ea6432ccdcd83e6a49a5f19008de9"
 order = "Unicode codepoint order, as Python sorted(set(...))"
 ```
 
@@ -59,6 +60,8 @@ order = "Unicode codepoint order, as Python sorted(set(...))"
 
 ```text { type: notebook.cell }
 L := sorted, de-duplicated nouns (NN, NNS, NNP, NNPS) of the lexicon corpus
+lemma(w) := WordNetLemmatizer().lemmatize(w) if w ends with 'e', else PorterStemmer().stem(w)  # S7_generator.py line 49
+plural(w) := inflect.engine().plural(w)
 for each token w of the source text, in order:
     if tag(w) in {NN, NNP}:     add w to L (keep sorted);   emit L[min(idx(w) + n, |L| − 1)]
     if tag(w) in {NNS, NNPS}:   add lemma(w) to L;          emit plural(L[min(idx(lemma) + n, |L| − 1)])
@@ -83,6 +86,7 @@ for each token w of the source text, in order:
 | Challenge | Failure signal |
 |---|---|
 | Run twice with different tagger models | T8, `drift` |
+| Use tool data whose digest differs from frame.json | `drift` |
 | Pick `n = 0` or `n ≥ \|L\|` | `bad_key` |
 | Use `corpus:montypython` as lexicon | `not_public_domain` |
 | Report 1 bit when only `n = 7` was offered | T5 |

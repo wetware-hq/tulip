@@ -38,7 +38,7 @@ The README numbers the annexes 1 to 3; the folders are `Annex2` to `Annex4`. Pin
 | `Annex3/Shakespeare_Generator.py` | `0936dd94…377576` | the same, over Shakespeare | — | `skills/combine-lines.md` |
 | `Annex4/Conte2.py` | `d8adb593…36320b` | algorithm: tale as graph | Raymond Queneau | `skills/traverse-tale.md` |
 
-Full digests are in `frame.json` `source.files`.
+Full digests are in `frame.json` `source.files`. Tool pins live in `frame.json` `tools`.
 
 ## Admissible corpora
 
