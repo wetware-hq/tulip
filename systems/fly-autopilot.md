@@ -116,8 +116,15 @@ A heading has `2^19 = 524,288` values, but values that differ only at nodes the 
 | 10 | 83 | 6.375 | 148 (7.209 bits) |
 | 9 | 63 | 5.977 | — |
 | 8 | 46 | 5.524 | — |
+| 7 | 32 | 5.000 | — |
+| 6 | 21 | 4.392 | — |
+| 5 | 13 | 3.700 | — |
+| 4 | 8 | 3.000 | — |
+| 3 | 4 | 2.000 | — |
+| 2 | 2 | 1.000 | — |
+| 1 | 1 | 0 | — |
 
-The counts are in `frame.json` `autopilot.flights`. Presets: `first` flies 1 → 4 → 9 → 5 → 6 → 11 and then circles at 11; `second` flies 1 → 2 → 3 → 21 and ends.
+The counts are in `frame.json` `autopilot.flights`, one for every number of incipits the frame can have left. Presets: `first` flies 1 → 4 → 9 → 5 → 6 → 11 and then circles at 11; `second` flies 1 → 2 → 3 → 21 and ends.
 
 ### Per-chapter rules (in addition to `compose-frame`)
 
