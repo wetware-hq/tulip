@@ -1,0 +1,130 @@
+{
+  "tulip": 1,
+  "source": {
+    "repo": "Princeton-CDH/digital-oulipo",
+    "commit": "ef9ef320457837df8028188117a8568a56f796bb",
+    "licence": null,
+    "files": {
+      "Annex2/S7_generator.py": "sha256:b96a0d572e5b16a6a7975f72b8c0dfab7c077710d2b919d87cd98158a9b5dc71",
+      "Annex3/CMMP.py": "sha256:e0b3c575165d3bff26c30d4323e849c73be6ef141408898df76abc14dabc8299",
+      "Annex3/Shakespeare_Generator.py": "sha256:0936dd94ed52db32eccaf2571f8fea51df64955b449a113b0853b7b3f6377576",
+      "Annex4/Conte2.py": "sha256:d8adb593607c9cff181c63ee735e7e9aeb4ba9afaabfc057531a2eb57936320b"
+    }
+  },
+  "corpora": {
+    "corpus:raven": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex2/Raven.txt",
+      "digest": "sha256:944e8e8cdb06642bc2e140c4a2753c43d65fc1e4fc3186a6d07fe66e2305f49f",
+      "shape": "text",
+      "licence": "public-domain",
+      "status": "admit"
+    },
+    "corpus:poe": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex2/Poe.txt",
+      "digest": "sha256:e822a54a1894fc05e5374f395bd0caea6eb8e750ae7b21e1a72bf1db05a708d5",
+      "shape": "lexicon",
+      "licence": "public-domain",
+      "status": "admit"
+    },
+    "corpus:melville": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex2/Melville.txt",
+      "digest": "sha256:ca567b9cd6470bd9a1be90323ae24aa6403ca579bd9cf1581126be305425c3eb",
+      "shape": "text",
+      "licence": "public-domain",
+      "status": "admit"
+    },
+    "corpus:dickens": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex2/Dickens.txt",
+      "digest": "sha256:b057ac3e08062d5f0bf158ea966073dc05e2944fcb750ae5847d9bd3e333a77d",
+      "shape": "text",
+      "licence": "public-domain",
+      "status": "admit"
+    },
+    "corpus:doi": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex2/DoI.txt",
+      "digest": "sha256:a2a9c13383faec50889f24b954464fb422bb63ad82360f9ddc76dfcb38cc5024",
+      "shape": "text",
+      "licence": "public-domain",
+      "status": "admit"
+    },
+    "corpus:genesis": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex2/Bible.txt",
+      "digest": "sha256:6239a289b79ffc67f8995b9cc60ee2d29983b0cae7cc60e30fd8f432a367e36d",
+      "shape": "text",
+      "licence": "public-domain",
+      "status": "admit"
+    },
+    "corpus:kjv": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex2/King_James_Bible%20copy.txt",
+      "digest": "sha256:ef4a0a6f3bf7254c2304a0d7b577200f2b13c5c37c9bb5c28875e4017bbf14e9",
+      "shape": "lexicon",
+      "licence": "public-domain",
+      "status": "admit"
+    },
+    "corpus:inaugural": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex2/InauguralAddressCorpus.txt",
+      "digest": "sha256:698233fe59f766886142d24c4a5db2ded20f35d983b4e82e12a2571823b4ef55",
+      "shape": "lexicon",
+      "licence": "public-domain",
+      "status": "admit"
+    },
+    "corpus:shakespeare-sonnets": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex3/Shakespeare_Generator.py",
+      "digest": "sha256:0936dd94ed52db32eccaf2571f8fea51df64955b449a113b0853b7b3f6377576",
+      "shape": "matrix",
+      "licence": "public-domain",
+      "status": "admit",
+      "field": "Corpus.poems",
+      "repair": "split poems[7][2] after each comma into three lines (Sonnet 104, verses 3-5)"
+    },
+    "corpus:montypython": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex2/MontyPython.txt",
+      "digest": "sha256:b2acacd449bc878fb66193b10d05175ec43f27fae77ce555cce9ed4c797d8d6f",
+      "shape": "lexicon",
+      "licence": "copyright",
+      "status": "refuse"
+    },
+    "corpus:cmmp": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex3/CMMP.py",
+      "digest": "sha256:e0b3c575165d3bff26c30d4323e849c73be6ef141408898df76abc14dabc8299",
+      "shape": "matrix",
+      "licence": "copyright",
+      "status": "structure-only",
+      "field": "Corpus.poems"
+    },
+    "corpus:conte": {
+      "url": "https://raw.githubusercontent.com/Princeton-CDH/digital-oulipo/ef9ef320457837df8028188117a8568a56f796bb/Annex4/Conte2.py",
+      "digest": "sha256:d8adb593607c9cff181c63ee735e7e9aeb4ba9afaabfc057531a2eb57936320b",
+      "shape": "graph",
+      "licence": "copyright",
+      "status": "structure-only",
+      "field": "Graph.edgelist"
+    }
+  },
+  "fills": {
+    "corpus:conte": {
+      "text": "corpus:kjv",
+      "rule": "node n -> Genesis 1:n, n = 1..21",
+      "extract": "after the line 'The First Book of Moses:  Called Genesis', collapse whitespace; verse 1:n is the text after the marker '1:n ' up to the next '<chapter>:<verse> ' marker",
+      "labels": ["Take the first way", "Take the second way"]
+    }
+  },
+  "tools": {
+    "substitute-lexeme": {
+      "nltk": "3.8.1",
+      "inflect": "7.0.0",
+      "tokenizer": {"call": "nltk.word_tokenize", "data": "tokenizers/punkt.zip", "digest": "sha256:51c3078994aeaf650bfc8e028be4fb42b4a0d177d41c012b6a983979653660ec"},
+      "tagger": {"call": "nltk.pos_tag", "data": "taggers/averaged_perceptron_tagger.zip", "digest": "sha256:e1f13cf2532daadfd6f3bc481a49859f0b8ea6432ccdcd83e6a49a5f19008de9"},
+      "lemmatizer": {"call": "WordNetLemmatizer().lemmatize(w) if it ends with 'e', else PorterStemmer().stem(w)", "data": "corpora/wordnet.zip", "digest": "sha256:cbda5ea6eef7f36a97a43d4a75f85e07fccbb4f23657d27b4ccbc93e2646ab59"},
+      "plural": {"call": "inflect.engine().plural"}
+    }
+  },
+  "frame": {
+    "max_incipits": 10,
+    "person": "second",
+    "tense": "present",
+    "max_chapter_words": 300,
+    "root_empty": "a087c597be7c8d1ab3f8afe553071ad1e1f3da4fcbeee4e075cdfab0f884cddc"
+  },
+  "traces": {}
+}

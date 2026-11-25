@@ -1,0 +1,140 @@
+::meta
+title: tulip route and file index
+version: 1
+updated: 2026-11-25
+domain: tulip|writing-frame|oulipo|cybernetics
+scope: all
+governs: docs/follow-agent-contract.md
+checksum: sha256:ec34fe8c6d79affa5c9565c38658361d4ee8903988be517107604812eb5d88c2
+::end
+
+::schema
+node-types: [stage, skill, system, assertion, meta]
+edge-types: [requires, precedes, composes, refuses]
+scope-levels: [all, reader, engine, narrator]
+::end
+
+::index
+# id | type | scope | conf | keywords
+banner | meta | all | 1.00 | academic, literary, public-domain, reader-only-chooses
+contract | stage | all | 1.00 | worlds, edge, bits, trace, flow-laws, codes, frame-grammar, predicates
+pins | stage | all | 1.00 | source-commit, digest, public-domain, structure-only, repair
+substitute | skill | engine | 1.00 | s+n, lescure, lexicon, offset, clamp
+combine | skill | engine | 1.00 | queneau, 10x14, key, age, position, machine-seed
+traverse | skill | engine | 1.00 | queneau, conte, graph, illusory-choice, path
+compose | system | narrator | 1.00 | calvino, second-person, incipit, hinge, title-sentence, replay
+stop | assertion | all | 1.00 | frame-ends, last-chapter-frame
+__changelog | meta | all | 1.00 | changes, version
+::end
+
+::node [id=banner type=meta confidence=1.00 scope=all updated=2026-11-25]
+::dense
+academic|literary|public-domain|reader-only-chooses
+::end
+::warning
+Read DISCLAIMER before any node.
+::end
+::edges
+->[:precedes] contract
+::end
+::end
+
+::node [id=contract type=stage confidence=1.00 scope=all updated=2026-11-25]
+::dense
+reader|engine|narrator|edge-bits|trace-root|closed-loop|pure-chance|T1-T12
+::end
+::full
+Load docs/follow-agent-contract.md.
+::end
+::edges
+->[:requires] docs/follow-agent-contract.md
+->[:precedes] pins
+->[:precedes] compose
+::end
+::end
+
+::node [id=pins type=stage confidence=1.00 scope=all updated=2026-11-25]
+::dense
+digital-oulipo@ef9ef32|admit|structure-only|refuse|repair-sonnet-104
+::end
+::full
+Load docs/pin-sources.md and frame.json corpora.
+::end
+::edges
+->[:requires] docs/pin-sources.md
+->[:requires] frame.json
+->[:precedes] substitute
+->[:precedes] combine
+->[:precedes] traverse
+::end
+::end
+
+::node [id=substitute type=skill confidence=1.00 scope=engine updated=2026-11-25]
+::dense
+algebra|S+n|pinned-tagger|clamp
+::end
+::full
+Load skills/substitute-lexeme.md.
+::end
+::edges
+->[:requires] skills/substitute-lexeme.md
+->[:composes] compose
+::end
+::end
+
+::node [id=combine type=skill confidence=1.00 scope=engine updated=2026-11-25]
+::dense
+combinatorics|r^c|key-14-digits|bad-key-on-short
+::end
+::full
+Load skills/combine-lines.md.
+::end
+::edges
+->[:requires] skills/combine-lines.md
+->[:composes] compose
+::end
+::end
+
+::node [id=traverse type=skill confidence=1.00 scope=engine updated=2026-11-25]
+::dense
+algorithm|21-nodes|0-bit-at-13-14|terminals-20-21
+::end
+::full
+Load skills/traverse-tale.md.
+::end
+::edges
+->[:requires] skills/traverse-tale.md
+->[:composes] compose
+::end
+::end
+
+::node [id=compose type=system confidence=1.00 scope=narrator updated=2026-11-25]
+::dense
+frame-first-and-last|alternate|cite-[eN]|max-10-incipits|300-words
+::end
+::full
+Load systems/compose-frame.md.
+::end
+::edges
+->[:requires] systems/compose-frame.md
+->[:precedes] stop
+::end
+::end
+
+::node [id=stop type=assertion confidence=1.00 scope=all updated=2026-11-25]
+::dense
+stop|frame-ends
+::end
+::assertion
+trigger: after [compose]
+check: terminal OR incipits = 10 OR picked = "stop"; last chapter world = frame; T1-T12
+on-pass: halt
+on-fail: ->[:requires] contract
+::end
+::end
+
+::node [id=__changelog type=meta confidence=1.00 scope=all updated=2026-11-25]
+::dense
+v1|2026-11-25|initial specbase (WET-137)
+::end
+::end
