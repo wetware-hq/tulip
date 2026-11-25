@@ -60,7 +60,7 @@ order = "Unicode codepoint order, as Python sorted(set(...))"
 
 ```text { type: notebook.cell }
 L := sorted, de-duplicated nouns (NN, NNS, NNP, NNPS) of the lexicon corpus
-lemma(w) := WordNetLemmatizer().lemmatize(w) if w ends with 'e', else PorterStemmer().stem(w)  # S7_generator.py line 49
+lemma(w) := WordNetLemmatizer().lemmatize(w) if that lemma ends with 'e', else PorterStemmer().stem(w)  # S7_generator.py line 49
 plural(w) := inflect.engine().plural(w)
 for each token w of the source text, in order:
     if tag(w) in {NN, NNP}:     add w to L (keep sorted);   emit L[min(idx(w) + n, |L| − 1)]
