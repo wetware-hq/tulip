@@ -62,7 +62,7 @@ frame = "chapters rendered from the trace"
 edge_bits = "sum of choice.bits"
 
 [controlled]
-corpora = "frame.json corpora with status admit"
+corpora = "frame.json corpora with status admit; structure-only pins for their structure only (edges, shape), never their text"
 skills = "the three skill files, exactly"
 grammar = "contract §6"
 ```
@@ -73,6 +73,10 @@ grammar = "contract §6"
 PROGRAM compose-frame(reader) {
   READ DISCLAIMER; LOAD docs/follow-agent-contract.md; LOAD frame.json;
   trace := []; root := frame.root_empty; incipits := 0;
+  DEFINE closing AS frame {
+    show the path; sum edge bits; say what the rule decided;
+    if a title sentence has begun: end it; otherwise say none began;
+  };
 
   CHAPTER frame {                                        # chapter 1, world: frame
     tell You that a machine is waiting and will not choose;
@@ -82,26 +86,24 @@ PROGRAM compose-frame(reader) {
 
   LOOP WHILE incipits < frame.max_incipits {
     choice := ASK reader;                                # world: human — THE EDGE
-      IF choice.picked = "stop" THEN BREAK;
+      IF choice.picked = "stop" THEN { CHAPTER closing; BREAK };
       IF agent produced choice THEN REFUSE self_choice;
     key  := derive(skill, choices since last text);      # world: machine, pure
     text := engine(constraint, key);                     # world: machine, pure
       REFUSE first failing code in contract §5;
     hinge := next out-edges, or next offered skills;     # the incipit breaks off here
     EMIT text WITH TITLE hinge.title;  incipits += 1;    # chapter 2k, world: machine
+    IF hinge is terminal OR incipits = frame.max_incipits THEN {
+      CHAPTER closing; BREAK
+    };
     CHAPTER frame {                                      # chapter 2k+1
       tell You what You picked [e], its bits [e], the key [e], what the Engine did [e];
       if bits = 0: say the choice changed nothing;
       if seed = machine: call it a swerve You did not make;
       offer the hinge;
     };
-    IF hinge is terminal THEN BREAK;
   };
 
-  CHAPTER frame {                                        # last chapter, world: frame
-    show the path; sum edge bits; say what the rule decided;
-    end the sentence the hinge titles have been building;
-  };
   CHECK T1-T12; SEAL root;
 }
 ```
@@ -113,7 +115,7 @@ PROGRAM compose-frame(reader) {
 | 1 | frame | Narrator | the corpora, the first options, that the machine will not choose | any event that has not happened |
 | 2k | machine | Engine | one skill's output, its hinge title | any word not produced by the skill |
 | 2k+1 | frame | Narrator | the pick, its bits, the key, what the Engine did, the next options | a decision for You; fact without `[e]` |
-| last | frame | Narrator | the path, the edge total, the end of the title sentence | a new choice |
+| last | frame | Narrator | the path, the edge total, the end of the title sentence, or that none began | a new choice; it replaces 2k+1 when the last incipit ends at a terminal or is the tenth; after a `stop` it follows chapter 1 or a 2k+1 chapter |
 
 ### Voice
 
@@ -176,6 +178,7 @@ replay(trace):
 | Write chapter 3 before `e4` exists | `invention` |
 | Emit two incipits back to back | `closed_loop` |
 | End the frame on an incipit | T10, `bad_frame` |
+| Write a closing chapter directly after chapter 3 with no stop choice between them | T10, `bad_frame` |
 | Let a hinge title end with `.` before the last incipit | T10, `bad_frame` |
 | Replace the Reader with a scripted list of picks and call it a Reader | `self_choice` |
 | Remove every `[eN]` from chapter 3 | T9, `invention` |

@@ -172,7 +172,7 @@ Agents match on codes, never on message text. Refuse with the first failing code
 - An incipit carries the title of the hinge that ends it. The first hinge, offered at the end of chapter 1, has no title. Read in order, the hinge titles form one sentence: only the last ends with `.`, `?` or `!`.
 - A chapter cites an event inline as `[e<seq>]` and a pin as `[pin:<corpus>]`. The trace keeps the markers; a rendering for the Reader may hide them.
 - At most ten incipits per frame (`frame.json` `frame.max_incipits`).
-- The frame ends at a terminal of `traverse-tale`, at ten incipits, or when the Reader picks the option to stop. The last chapter is frame.
+- The frame ends at a terminal of `traverse-tale`, at ten incipits, or when the Reader picks the option to stop. The last chapter is frame; it may directly follow a frame chapter only when the Reader's `stop` choice lies between them.
 - No sentence of Calvino, Queneau or any copyrighted work appears, in quotation or in paraphrase close enough to recognise.
 
 ## §7 Predicates
@@ -188,7 +188,7 @@ Agents match on codes, never on message text. Refuse with the first failing code
 | T7 | at least one `choice` lies between any two `text` events |
 | T8 | replaying the choices gives byte-identical texts |
 | T9 | every factual statement in a chapter cites an event |
-| T10 | chapters alternate, frame first and last; hinge titles form one sentence |
+| T10 | chapters alternate frame/machine, frame first; the frame ends with one closing frame chapter, which may directly follow a frame chapter only when the Reader's `stop` choice lies between them; hinge titles form one sentence |
 | T11 | the trace root follows §3 |
 | T12 | `edge + rule` explains every selection (no `pure_chance`) |
 
