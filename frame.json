@@ -126,5 +126,19 @@
     "max_chapter_words": 300,
     "root_empty": "a087c597be7c8d1ab3f8afe553071ad1e1f3da4fcbeee4e075cdfab0f884cddc"
   },
+  "autopilot": {
+    "type": "I",
+    "envelope": ["traverse-tale"],
+    "percept": ["node", "offered"],
+    "heading": {
+      "domain": "19 digits over {0,1}; digit n answers node n; 0 = first, 1 = second",
+      "size": 524288,
+      "presets": {"first": "0000000000000000000", "second": "1111111111111111111"}
+    },
+    "flights": {"1": 1, "2": 2, "3": 4, "4": 8, "5": 13, "6": 21, "7": 32, "8": 46, "9": 63, "10": 83},
+    "reflex_bits": 0,
+    "control": ["hold", "take"],
+    "take_bits": 1
+  },
   "traces": {}
 }
