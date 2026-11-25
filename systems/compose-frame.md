@@ -107,7 +107,8 @@ PROGRAM compose-frame(reader) {
       tell You what You picked [e], its bits [e], the key [e], what the Engine did [e];
       if bits = 0: say the choice changed nothing;
       if seed = machine: call it a swerve You did not make;
-      if a reflex: say the autopilot took it from the heading, 0 bits; offer hold or take;
+      if a reflex: say the autopilot took it from the heading, 0 bits;
+      if a heading is in force: say the autopilot will answer the hinge; offer hold or take;
       offer the hinge;
     };
   };
