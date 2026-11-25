@@ -59,10 +59,12 @@ order = "Unicode codepoint order, as Python sorted(set(...))"
 ### Process
 
 ```text { type: notebook.cell }
-L := sorted, de-duplicated nouns (NN, NNS, NNP, NNPS) of the lexicon corpus
+W := word_tokenize(lexicon text), sorted with key=str.lower        # S7_generator.py tags this sorted list, not running prose
+L := sorted(set(w for w, t in pos_tag(W) if t in {NN, NNS, NNP, NNPS}))   # codepoint order, case kept
+T := [w.lower() for w in word_tokenize(source text) if w.isalpha()]       # exactly what the source tags
 lemma(w) := WordNetLemmatizer().lemmatize(w) if that lemma ends with 'e', else PorterStemmer().stem(w)  # S7_generator.py line 49
 plural(w) := inflect.engine().plural(w)
-for each token w of the source text, in order:
+for each (w, tag(w)) in pos_tag(T), in order:
     if tag(w) in {NN, NNP}:     add w to L (keep sorted);   emit L[min(idx(w) + n, |L| − 1)]
     if tag(w) in {NNS, NNPS}:   add lemma(w) to L;          emit plural(L[min(idx(lemma) + n, |L| − 1)])
     otherwise:                   emit w
@@ -70,7 +72,10 @@ for each token w of the source text, in order:
 
 - The source adds each text noun to the lexicon before shifting, so a noun always has an index. tulip keeps this.
 - The source clamps at the last entry instead of wrapping round. tulip keeps the clamp and records it in the `text` event, because a clamped noun is a selection made by the rule, not by `n`.
-- The source lower-cases and drops non-alphabetic tokens. tulip emits them unchanged, so punctuation and line breaks survive.
+- The source tags the lexicon one word at a time out of a case-insensitive sort, and tags the text only after lower-casing it and dropping non-alphabetic tokens. Both inputs change the tags, so tulip tags exactly `W` and `T`; tagging the running text instead breaks T8 (`drift`).
+- The source prints one lower-case word per line and loses the rest. tulip emits the `T` words in lower case at their places in the source text and restores the dropped non-alphabetic tokens and the whitespace between tokens unchanged, so punctuation and line breaks survive.
+- The source accepts any integer `n`; a negative `n` can make `word_index + n` negative, which Python reads from the end of the lexicon. tulip refuses `n < 1` (`bad_key`).
+- Lexicon option 5 of the source, `/usr/share/dict/words`, is whatever file the host has; it is not a corpus at the pin and is refused (`unpinned`). Option 2 opens `King_James_Bible.txt`, which is not in the repository; the file at the pin is `King_James_Bible copy.txt`, pinned as `corpus:kjv`.
 - Key space: `1 ≤ n < |L|`. Offered as a choice, `bits = log2(number of offered offsets)`; the classic offer is the single value 7, worth 0 bits.
 
 ## Citations
@@ -87,7 +92,9 @@ for each token w of the source text, in order:
 |---|---|
 | Run twice with different tagger models | T8, `drift` |
 | Use tool data whose digest differs from frame.json | `drift` |
-| Pick `n = 0` or `n ≥ \|L\|` | `bad_key` |
+| Pick `n = 0`, `n < 0` or `n ≥ \|L\|` | `bad_key` |
+| Tag the running source text instead of `T` | T8, `drift` |
+| Use `/usr/share/dict/words` as lexicon | `unpinned` |
 | Use `corpus:montypython` as lexicon | `not_public_domain` |
 | Report 1 bit when only `n = 7` was offered | T5 |
 

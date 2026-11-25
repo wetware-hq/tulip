@@ -57,6 +57,8 @@ Full digests are in `frame.json` `source.files`. Tool pins live in `frame.json` 
 | `corpus:cmmp` | `Annex3/CMMP.py` `Corpus.poems` | matrix 10 × 14 | **structure only** | Queneau 1961, Gallimard copyright |
 | `corpus:conte` | `Annex4/Conte2.py` `Graph.edgelist` | graph 21 nodes | **structure only** | Queneau 1967, Gallimard copyright; runs with the fill above (`corpus:kjv`, Genesis 1:1–21) |
 
+Not admitted: `/usr/share/dict/words`, the source's fifth S+7 lexicon, is a host file outside the repository and has no pin (`unpinned`). The source's `King_James_Bible.txt` is a filename that does not exist at the pin; the file is `King_James_Bible copy.txt` (`corpus:kjv`).
+
 "Structure only" means tulip may use the shape (row and column counts, node numbers and the edge list by number) but never a word of the text. Calvino's novels are not corpora; they appear only as citations.
 
 ## Repair

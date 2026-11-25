@@ -1,11 +1,11 @@
 ::meta
 title: tulip route and file index
-version: 1
+version: 2
 updated: 2026-11-25
 domain: tulip|writing-frame|oulipo|cybernetics
 scope: all
 governs: docs/follow-agent-contract.md
-checksum: sha256:ec34fe8c6d79affa5c9565c38658361d4ee8903988be517107604812eb5d88c2
+checksum: sha256:a03b65c54de8c95def320a6ffdb0b03c3e859569f9d7ba7184fb1269c48ae1eb
 ::end
 
 ::schema
@@ -23,6 +23,8 @@ substitute | skill | engine | 1.00 | s+n, lescure, lexicon, offset, clamp
 combine | skill | engine | 1.00 | queneau, 10x14, key, age, position, machine-seed
 traverse | skill | engine | 1.00 | queneau, conte, graph, illusory-choice, path
 compose | system | narrator | 1.00 | calvino, second-person, incipit, hinge, title-sentence, replay
+typei | stage | all | 1.00 | type-i, reactive, present-percept, fixed-table, no-memory, envelope, zero-bit-reflex
+autopilot | system | engine | 1.00 | heading, reflex, hold, take, self-loop, flights, hand-back
 stop | assertion | all | 1.00 | frame-ends, last-chapter-frame
 __changelog | meta | all | 1.00 | changes, version
 ::end
@@ -41,7 +43,7 @@ Read DISCLAIMER before any node.
 
 ::node [id=contract type=stage confidence=1.00 scope=all updated=2026-11-25]
 ::dense
-reader|engine|narrator|edge-bits|trace-root|closed-loop|pure-chance|T1-T12
+reader|engine|narrator|autopilot|edge-bits|trace-root|closed-loop|pure-chance|reflex|T1-T13
 ::end
 ::full
 Load docs/follow-agent-contract.md.
@@ -50,6 +52,7 @@ Load docs/follow-agent-contract.md.
 ->[:requires] docs/follow-agent-contract.md
 ->[:precedes] pins
 ->[:precedes] compose
+->[:precedes] typei
 ::end
 ::end
 
@@ -71,7 +74,7 @@ Load docs/pin-sources.md and frame.json corpora.
 
 ::node [id=substitute type=skill confidence=1.00 scope=engine updated=2026-11-25]
 ::dense
-algebra|S+n|pinned-tagger|clamp
+algebra|S+n|pinned-tagger|tag-sorted-lexicon|tag-lowered-text|clamp|n>=1
 ::end
 ::full
 Load skills/substitute-lexeme.md.
@@ -84,7 +87,7 @@ Load skills/substitute-lexeme.md.
 
 ::node [id=combine type=skill confidence=1.00 scope=engine updated=2026-11-25]
 ::dense
-combinatorics|r^c|key-14-digits|bad-key-on-short
+combinatorics|r^c|key-14-digits|bad-key-on-short|original-1-10|all-10-versions
 ::end
 ::full
 Load skills/combine-lines.md.
@@ -97,7 +100,7 @@ Load skills/combine-lines.md.
 
 ::node [id=traverse type=skill confidence=1.00 scope=engine updated=2026-11-25]
 ::dense
-algorithm|21-nodes|0-bit-at-13-14|terminals-20-21
+algorithm|21-nodes|0-bit-at-13-14|terminals-20-21|ids-first-second|autopilot-envelope
 ::end
 ::full
 Load skills/traverse-tale.md.
@@ -105,6 +108,7 @@ Load skills/traverse-tale.md.
 ::edges
 ->[:requires] skills/traverse-tale.md
 ->[:composes] compose
+->[:composes] autopilot
 ::end
 ::end
 
@@ -121,13 +125,40 @@ Load systems/compose-frame.md.
 ::end
 ::end
 
+::node [id=typei type=stage confidence=1.00 scope=all updated=2026-11-25]
+::dense
+present-only|fixed-mapping|same-percept-same-act|no-model|narrow-envelope|delegated|0-bits|stateful|unengaged
+::end
+::full
+Load docs/distil-type-i.md.
+::end
+::edges
+->[:requires] docs/distil-type-i.md
+->[:precedes] autopilot
+::end
+::end
+
+::node [id=autopilot type=system confidence=1.00 scope=engine updated=2026-11-25]
+::dense
+heading-19-digits|reflex=table(percept)|hold|take-1-bit|hand-back|83-flights|T13
+::end
+::full
+Load systems/fly-autopilot.md and frame.json autopilot.
+::end
+::edges
+->[:requires] systems/fly-autopilot.md
+->[:requires] frame.json
+->[:composes] compose
+::end
+::end
+
 ::node [id=stop type=assertion confidence=1.00 scope=all updated=2026-11-25]
 ::dense
 stop|frame-ends
 ::end
 ::assertion
 trigger: after [compose]
-check: terminal OR incipits = 10 OR picked = "stop"; last chapter world = frame; T1-T12
+check: terminal OR incipits = 10 OR picked = "stop"; last chapter world = frame; T1-T13
 on-pass: halt
 on-fail: ->[:requires] contract
 ::end
@@ -136,5 +167,6 @@ on-fail: ->[:requires] contract
 ::node [id=__changelog type=meta confidence=1.00 scope=all updated=2026-11-25]
 ::dense
 v1|2026-11-25|initial specbase (WET-137)
+v2|2026-11-25|Type I autopilot, reflex, T13; source residuals patched (WET-134, WET-135, WET-137)
 ::end
 ::end

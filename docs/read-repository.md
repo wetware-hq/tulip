@@ -21,6 +21,8 @@ tulip is a cybernetic writing engine. It is a specbase: an agent reads these fil
 ## Graph
 
 - → [follow-agent-contract.md](follow-agent-contract.md)
+- → [distil-type-i.md](distil-type-i.md)
+- → [../systems/fly-autopilot.md](../systems/fly-autopilot.md)
 
 ## Route
 
@@ -32,6 +34,8 @@ Read `DISCLAIMER` before any node. Then take the first row that covers the task 
 | Swap nouns by a fixed offset (S+n) | contract → `skills/substitute-lexeme.md` |
 | Build a poem from a key over a line matrix | contract → `skills/combine-lines.md` |
 | Walk a branching tale | contract → `skills/traverse-tale.md` |
+| Let the book walk a tale on a heading the Reader sets (Type I autopilot) | contract → `docs/distil-type-i.md` → `systems/fly-autopilot.md` |
+| Decide whether a behaviour is Type I (reactive) | `docs/distil-type-i.md` |
 | Check whether a corpus may be used | `docs/pin-sources.md` |
 | Audit or replay a finished trace | contract §7 → `systems/compose-frame.md` §Replay |
 | Traverse without reading prose | `ooc/tulip.og` |
@@ -53,6 +57,10 @@ flowchart LR
     S --> F[compose-frame]
     L --> F
     T --> F
+    C --> I[distil-type-i]
+    I --> A[fly-autopilot]
+    T --> A
+    A --> F
 ```
 
 ## Licence

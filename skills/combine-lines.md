@@ -56,12 +56,15 @@ matrix = "corpus:shakespeare-sonnets, repaired, r = 10 rows (Sonnets 1, 7, 10, 1
 
 | Derivation | Source method | Reader gives | `seed` | Rule |
 |---|---|---|---|---|
-| `digits` | — | 14 digits, one choice of 10 per verse | `reader` | `k = digits`; 46.5 bits |
+| `digits` | `get_all_verses` | 14 picks, one per verse, each from all 10 versions of that verse | `reader` | `k = digits`; 46.5 bits |
+| `original` | `pick_sonnet` | a sonnet number 1–10 | `reader` | `k = (s − 1)` repeated 14 times, so the sonnet as written; `log2 10 ≈ 3.32` bits |
 | `age` | `age_sonnet` | birthday as `mmddyyyy` | `reader` | `k = first 14 digits of (int(mmddyyyy))²`; refuse if fewer than 14 |
 | `position` | `location_sonnet` | latitude, longitude to 0.001, no sign | `reader` | `k = format(lat · lon · 100987654321, "14.0f")`; refuse if not 14 digits |
 | `machine` | `computer_sonnet` | nothing | `machine` | `k = first 14 digits of uuid1().int`; 0 Reader bits, a clinamen |
 
 Two source defects become refusals. `age` with a month before October gives a 7-digit integer whose square can have 13 digits; the source then prints a 13-line sonnet. `position` can give fewer than 14 digits or leading spaces. tulip refuses both with `bad_key` and offers the Reader the hinge again.
+
+Two more source defects shape the new rows. `get_all_verses` loops over `range(0, 9)`, so it lists 9 of the 10 versions of a verse and never row 9 (Sonnet 106); a `digits` hinge built from it hides an option, which tulip refuses as `not_offered`, so the hinge offers all `r` rows. `pick_sonnet` indexes `poems[s − 1]` with no check: `s = 0` silently prints the last sonnet (Python reads index −1) and `s > 10` raises `IndexError`; tulip refuses any `s` outside 1–10 with `bad_key`. Its prompt in `Shakespeare_Generator.py` still says "Queneau's"; the label tulip shows names Shakespeare.
 
 ### Worked example
 
@@ -92,7 +95,7 @@ The hinge accepted dates from 1900 to 2026: 46,386 dates, of which 9,556 (every 
 
 | Pin | Supports |
 |---|---|
-| [`Annex3/CMMP.py` at `ef9ef32`](https://github.com/Princeton-CDH/digital-oulipo/blob/ef9ef320457837df8028188117a8568a56f796bb/Annex3/CMMP.py) | `generate_sonnet`, `age_sonnet`, `location_sonnet`, `computer_sonnet` |
+| [`Annex3/CMMP.py` at `ef9ef32`](https://github.com/Princeton-CDH/digital-oulipo/blob/ef9ef320457837df8028188117a8568a56f796bb/Annex3/CMMP.py) | `generate_sonnet`, `age_sonnet`, `location_sonnet`, `computer_sonnet`, `pick_sonnet`, `get_all_verses` |
 | [`Annex3/Shakespeare_Generator.py` at `ef9ef32`](https://github.com/Princeton-CDH/digital-oulipo/blob/ef9ef320457837df8028188117a8568a56f796bb/Annex3/Shakespeare_Generator.py) | the public-domain matrix and its defect |
 | [*Cent mille milliards de poèmes*](https://en.wikipedia.org/wiki/Cent_mille_milliards_de_po%C3%A8mes) | Queneau's 10 × 14 design |
 
@@ -104,6 +107,8 @@ The hinge accepted dates from 1900 to 2026: 46,386 dates, of which 9,556 (every 
 | Unrepaired matrix, key digit 7 at verse 13 | `ragged` (the source raises `IndexError`) |
 | Same key twice, different bytes | T8, `drift` |
 | `machine` seed narrated as the Reader's choice | `invention` |
+| `digits` hinge offering 9 versions of a verse, as `get_all_verses` does | `not_offered` |
+| `original` with `s = 0` | `bad_key` (the source prints Sonnet 106) |
 
 ## Licence
 

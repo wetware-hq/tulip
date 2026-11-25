@@ -13,8 +13,8 @@ This is the meta-program. It runs a Calvino frame around the three Oulipian skil
   "role": "alternate frame chapters and incipits around Reader choices; keep the trace",
   "reads": ["frame.json", "skills/*.md", "choice events from a person"],
   "writes": ["one trace (JSON Lines, append only)"],
-  "must": ["frame first and last", "wait for the Reader at every hinge", "narrate only the trace", "count the bits"],
-  "check": ["T1-T12"]
+  "must": ["frame first and last", "wait for the Reader at every hinge, unless a heading is in force there", "narrate only the trace", "count the bits"],
+  "check": ["T1-T13"]
 }
 ```
 
@@ -24,6 +24,7 @@ This is the meta-program. It runs a Calvino frame around the three Oulipian skil
 - ← [../skills/combine-lines.md](../skills/combine-lines.md)
 - ← [../skills/traverse-tale.md](../skills/traverse-tale.md)
 - ← [../docs/follow-agent-contract.md](../docs/follow-agent-contract.md)
+- ← [fly-autopilot.md](fly-autopilot.md)
 
 ## Composition
 
@@ -33,6 +34,7 @@ machine = "the Engine: hinge, key and text events, by skill"
 frame = "the Narrator: chapter events, second person, present tense"
 spine = "skills/traverse-tale.md, or a flat sequence of hinges"
 stop = "terminal node | ten incipits | the Reader picks stop"
+autopilot = "systems/fly-autopilot.md: reflexes at tale hinges under a Reader heading"
 ```
 
 ## Indications
@@ -42,7 +44,7 @@ stop = "terminal node | ten incipits | the Reader picks stop"
 
 ## Contraindications
 
-- Never continue past a hinge without a Reader choice. Silence is not a choice (`self_choice`).
+- Never continue past a hinge without a Reader choice. Silence is not a choice (`self_choice`). The one exception is a `traverse-tale` hinge while a Reader heading is in force: the autopilot answers it with a reflex (`systems/fly-autopilot.md`).
 - Never let a frame chapter carry machine-generated "literature". Chapters narrate; incipits are skill output (§6).
 - Never write an incipit freehand to fill a gap in a corpus (`pure_chance`).
 
@@ -85,7 +87,9 @@ PROGRAM compose-frame(reader) {
   HINGE { title: none, offered: [skill or seed options, "stop"] };
 
   LOOP WHILE incipits < frame.max_incipits {
-    choice := ASK reader;                                # world: human — THE EDGE
+    IF a heading is in force at this hinge THEN          # systems/fly-autopilot.md
+      choice := REFLEX(heading, hinge);                  # world: machine, 0 bits, T13
+    ELSE choice := ASK reader;                           # world: human — THE EDGE
       IF choice.picked = "stop" THEN { CHAPTER closing; BREAK };
       IF agent produced choice THEN REFUSE self_choice;
     IF choice.picked needs a Reader value THEN            # combine-lines digits | age | position
@@ -103,11 +107,12 @@ PROGRAM compose-frame(reader) {
       tell You what You picked [e], its bits [e], the key [e], what the Engine did [e];
       if bits = 0: say the choice changed nothing;
       if seed = machine: call it a swerve You did not make;
+      if a reflex: say the autopilot took it from the heading, 0 bits; offer hold or take;
       offer the hinge;
     };
   };
 
-  CHECK T1-T12; SEAL root;
+  CHECK T1-T13; SEAL root;
 }
 ```
 

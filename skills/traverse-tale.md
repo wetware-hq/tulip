@@ -28,6 +28,7 @@ Treat a tale as a directed graph whose nodes are passages and whose edges are th
 
 - The spine of a frame: each node is an incipit, each out-edge set is a hinge.
 - Showing the Reader the path they took against every path they did not.
+- The only envelope of the Type I autopilot (`systems/fly-autopilot.md`): its hinges are the one place a reflex may answer for the Reader.
 
 ## Contraindications
 
@@ -78,7 +79,7 @@ The edge list of `Graph.edgelist` at the pin, by node number. Nodes 20 and 21 ar
 
 ### Process
 
-Option labels come from `fills[graph].labels`, never from Queneau's option text.
+Option labels come from `fills[graph].labels`, never from Queneau's option text. Option ids are `first` and `second`, in out-edge order, and every hinge carries its `node`, so a heading digit `0` or `1` names one option at one node.
 
 ```text { type: notebook.cell }
 node := start; path := [start]
@@ -89,10 +90,13 @@ loop:
         if pick = again: node := start; path += [start]; continue
         else: stop
     emit hinge (title, offered = out-edges of node)
-    wait for choice; bits := log2(|distinct targets|)
+    wait for choice, or a reflex if a heading is in force; bits := log2(|distinct targets|), 0 for a reflex
+    if pick is not first or second: refuse not_offered; offer again         # the source: "Ceci n'est pas un choix."
     node := target(pick); path += [node]
 at stop: emit text (the path, and the graph with the path marked)   # the source draws it with graphviz, path in green
 ```
+
+On `again` the source re-enters node 1 without adding it to `self.path`, so its printed path joins two tales with no seam. tulip appends `start`, so the path shows each reread.
 
 ## Citations
 
@@ -110,6 +114,7 @@ at stop: emit text (the path, and the graph with the path marked)   # the source
 | Fill node 4 with Queneau's sentence | `not_public_domain` |
 | Agent picks at node 1 because the Reader is slow | `self_choice` |
 | Walk a graph with no fill record | `unpinned` |
+| Reflex at a terminal's `again` / `stop` hinge | `unengaged` |
 
 ## Licence
 

@@ -47,6 +47,12 @@ The titles of the incipits, read in order, form one sentence. The book ends when
 
 The full program is in [`systems/compose-frame.md`](systems/compose-frame.md), with a worked example.
 
+## The autopilot: a Type I machine
+
+In the branching tale you can hand over the wheel. You write the book a **heading**: for each of the tale's 19 forks, first way or second way. A small **autopilot** then answers each fork from your table without asking, while the frame chapters go on telling you what it did. It is a [Type I](https://theconversation.com/understanding-the-four-types-of-ai-from-reactive-robots-to-self-aware-beings-67616) (reactive) machine: it sees only the fork in front of it, remembers nothing, and never adds a choice of its own. At node 11, where the first way leads back to node 11, it circles until the frame's ten-incipit limit stops it, because it cannot know it has been there before.
+
+Each fork it takes costs you 0 bits; the heading is worth what it can actually change (about 6.4 bits, not 19). You can take the controls back at any fork. The rules are in [`docs/distil-type-i.md`](docs/distil-type-i.md); the program and a worked flight are in [`systems/fly-autopilot.md`](systems/fly-autopilot.md).
+
 ## A small example
 
 You give the book your birthday, 25 November 1966. The book squares `11251966`, keeps the first fourteen digits, `12660673886515`, and uses digit *i* to pick line *i* from one of ten Shakespeare sonnets:
@@ -71,7 +77,9 @@ Then it tells you that your date was worth about 15 bits, that this kind of ques
 | [`docs/pin-sources.md`](docs/pin-sources.md) | Which source texts may be used, and the exact version of each. |
 | [`skills/`](skills) | The three procedures. |
 | [`systems/compose-frame.md`](systems/compose-frame.md) | The writing frame that runs them with a Reader. |
-| [`frame.json`](frame.json) | The pinned sources and frame settings. |
+| [`docs/distil-type-i.md`](docs/distil-type-i.md) | What a Type I (reactive) machine may and may not do. |
+| [`systems/fly-autopilot.md`](systems/fly-autopilot.md) | The autopilot that walks the tale on your heading. |
+| [`frame.json`](frame.json) | The pinned sources, frame settings and autopilot envelope. |
 | [`ooc/tulip.og`](ooc/tulip.og) | A compact map of the files, for agents that follow links. |
 
 **Agents** should start at `DISCLAIMER`, then [`docs/read-repository.md`](docs/read-repository.md). This README is a human overview only; where it differs from the contract, the contract is correct.
@@ -94,6 +102,8 @@ Then it tells you that your date was worth about 15 bits, that this kind of ques
 | **Bit** | The unit of choice. Picking one of two real options is 1 bit; one of 36,830 is about 15. |
 | **Trace** | The append-only record of every choice and every text. |
 | **Clinamen** | A swerve: a key the machine picked at random, declared as such. |
+| **Heading** | The table you give the autopilot: one way for each fork of the tale. |
+| **Reflex** | One fork answered by the autopilot from your heading. Worth 0 bits. |
 
 ## Licence
 
