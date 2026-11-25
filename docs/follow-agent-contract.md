@@ -170,7 +170,7 @@ Agents match on codes, never on message text. Refuse with the first failing code
 | `self_choice` | an agent produced a `choice` event |
 | `unengaged` | a `reflex` with no heading in force, after a `take`, outside `frame.json` `autopilot.envelope`, at a terminal or a hinge that needs a Reader value, or at a hinge the Reader has already answered |
 | `stateful` | a `reflex` whose `picked` is not `table(percept)`, or whose percept holds anything but the hinge's node and option ids |
-| `closed_loop` | two `text` events with no `choice` between, or a `text` fed back as a corpus without one |
+| `closed_loop` | two `text` events with no `choice` and no engaged `reflex` between, or a `text` fed back as a corpus without a `choice` |
 | `pure_chance` | selection in a `text` that no choice, rule or declared machine seed explains |
 | `no_hinge` | an incipit ends without a hinge and the skill is not at a terminal |
 | `invention` | a chapter states as fact something no cited event records |
